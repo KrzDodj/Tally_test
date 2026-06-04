@@ -10,6 +10,18 @@
         input { width: 100%; padding: 12px; box-sizing: border-box; border: 2px solid #7957ff; border-radius: 5px; font-size: 16px; margin-top: 5px; }
         button { display: block; width: 100%; padding: 15px; margin: 10px 0; background-color: #7957ff; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
         button:hover { background-color: #582eff; }
+        
+        /* Estilo para la versión */
+        .version {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: #999;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -22,7 +34,6 @@
         <input type="text" id="ejecutivo" placeholder="Tu usuario...">
     </div>
 
-    <!-- Botones -->
     <button onclick="abrirFormulario('?3d67f437-d55d-4f8b-8574-22435dde39a6=NO&Razon=SOLICITUD&Categoria=BONOS')">
         🚀 Activar Bono (VES)
     </button>
@@ -32,6 +43,9 @@
     </button>
 </div>
 
+<!-- Etiqueta de versión -->
+<div class="version">v1.1</div>
+
 <script>
     function abrirFormulario(params) {
         const ejecValue = document.getElementById('ejecutivo').value;
@@ -39,8 +53,8 @@
             alert('Por favor, escribe tu nombre/ID de Ejecutivo primero.');
             return;
         }
-        // El prefijo 'f_' es vital para que Tally reconozca el campo
         const baseUrl = 'https://tally.so/r/wAYjbk';
+        // Usamos el prefijo 'f_' como acordamos
         const finalUrl = baseUrl + params + '&f_c74873e1-ef45-4cd4-a0a0-a7c6715967e1=' + encodeURIComponent(ejecValue);
         
         window.open(finalUrl, '_blank');
