@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Operaciones</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f9; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h1 { color: #333; text-align: center; }
+        h2 { border-bottom: 2px solid #ddd; padding-bottom: 5px; margin-top: 30px; color: #555; }
+        button { 
+            display: block; width: 100%; padding: 15px; margin: 10px 0; 
+            background-color: #7957ff; color: white; border: none; border-radius: 5px; 
+            font-size: 16px; cursor: pointer; text-align: left;
+        }
+        button:hover { background-color: #582eff; }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <h1>Panel de Operaciones</h1>
+
+    <h2>Bonos</h2>
+    <button onclick="window.open('https://tally.so/r/wAYjbk?Razon=SOLICITUD&Categoria=BONOS&SubCategoria=ACTIVACION%20BONO%20DE%20BIENVENIDA&Moneda=VES', '_blank')">
+        ✅ Activar Bono (VES)
+    </button>
+    <button onclick="window.open('https://tally.so/r/wAYjbk?Razon=SOLICITUD&Categoria=BONOS&Moneda=BOB', '_blank')">
+        ✅ Activar Bono (BOB)
+    </button>
+
+    <h2>Soporte General</h2>
+    <button onclick="window.open('https://tally.so/r/wAYjbk?Razon=SOPORTE', '_blank')">
+        🔧 Consultas Generales
+    </button>
+</div>
+
+</body>
+</html>
