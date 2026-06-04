@@ -18,10 +18,11 @@
     <h1>Panel de Operaciones</h1>
     
     <div class="input-group">
-        <label><strong>Nombre o ID del Ejecutivo:</strong></label>
-        <input type="text" id="ejecutivo" placeholder="Escribe tu usuario aquí...">
+        <label><strong>Nombre del Ejecutivo:</strong></label>
+        <input type="text" id="ejecutivo" placeholder="Tu usuario...">
     </div>
 
+    <!-- Botones -->
     <button onclick="abrirFormulario('?3d67f437-d55d-4f8b-8574-22435dde39a6=NO&Razon=SOLICITUD&Categoria=BONOS')">
         🚀 Activar Bono (VES)
     </button>
@@ -35,12 +36,13 @@
     function abrirFormulario(params) {
         const ejecValue = document.getElementById('ejecutivo').value;
         if (!ejecValue) {
-            alert('Por favor, ingresa primero tu nombre o ID de Ejecutivo');
+            alert('Por favor, escribe tu nombre/ID de Ejecutivo primero.');
             return;
         }
-        // Construye el URL: URL base + parámetros del botón + campo Ejecutivo
+        // El prefijo 'f_' es vital para que Tally reconozca el campo
         const baseUrl = 'https://tally.so/r/wAYjbk';
-        const finalUrl = baseUrl + params + '&c74873e1-ef45-4cd4-a0a0-a7c6715967e1=' + encodeURIComponent(ejecValue);
+        const finalUrl = baseUrl + params + '&f_c74873e1-ef45-4cd4-a0a0-a7c6715967e1=' + encodeURIComponent(ejecValue);
+        
         window.open(finalUrl, '_blank');
     }
 </script>
