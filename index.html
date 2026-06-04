@@ -4,24 +4,15 @@
     <meta charset="UTF-8">
     <title>Panel de Operaciones</title>
     <style>
-        body { font-family: sans-serif; background-color: #f4f4f9; padding: 20px; display: flex; justify-content: center; }
-        .container { max-width: 500px; width: 100%; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f4f9; padding: 20px; display: flex; justify-content: center; }
+        .container { max-width: 500px; width: 100%; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; margin-top: 0; }
         .input-group { margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; box-sizing: border-box; border: 2px solid #7957ff; border-radius: 5px; font-size: 16px; margin-top: 5px; }
-        button { display: block; width: 100%; padding: 15px; margin: 10px 0; background-color: #7957ff; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        input { width: 100%; padding: 14px; box-sizing: border-box; border: 2px solid #7957ff; border-radius: 6px; font-size: 16px; margin-top: 5px; }
+        .hint { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+        button { display: block; width: 100%; padding: 16px; margin: 12px 0; background-color: #7957ff; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: 0.2s; }
         button:hover { background-color: #582eff; }
-        
-        /* Estilo para la versión */
-        .version {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-size: 12px;
-            color: #999;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
+        .version { position: fixed; bottom: 10px; right: 10px; font-size: 12px; color: #999; }
     </style>
 </head>
 <body>
@@ -32,32 +23,38 @@
     <div class="input-group">
         <label><strong>Nombre del Ejecutivo:</strong></label>
         <input type="text" id="ejecutivo" placeholder="Tu usuario...">
+        <div class="hint">Al hacer clic en cualquier botón, tu usuario se copiará automáticamente. ¡Solo pega (Ctrl+V) en el formulario!</div>
     </div>
 
-    <button onclick="abrirFormulario('?3d67f437-d55d-4f8b-8574-22435dde39a6=NO&Razon=SOLICITUD&Categoria=BONOS')">
+    <button onclick="copiarYAbrir('?Razon=SOLICITUD&Categoria=BONOS')">
         🚀 Activar Bono (VES)
     </button>
     
-    <button onclick="abrirFormulario('?Razon=SOPORTE')">
+    <button onclick="copiarYAbrir('?Razon=SOPORTE')">
         🔧 Soporte General
     </button>
 </div>
 
-<!-- Etiqueta de versión -->
-<div class="version">v1.1</div>
+<div class="version">v1.3</div>
 
 <script>
-    function abrirFormulario(params) {
+    function copiarYAbrir(params) {
         const ejecValue = document.getElementById('ejecutivo').value;
+        
         if (!ejecValue) {
-            alert('Por favor, escribe tu nombre/ID de Ejecutivo primero.');
+            alert('¡Atención! Escribe tu nombre o ID de Ejecutivo primero.');
             return;
         }
-        const baseUrl = 'https://tally.so/r/wAYjbk';
-        // Usamos el prefijo 'f_' como acordamos
-        const finalUrl = baseUrl + params + '&f_c74873e1-ef45-4cd4-a0a0-a7c6715967e1=' + encodeURIComponent(ejecValue);
-        
-        window.open(finalUrl, '_blank');
+
+        // Copia el valor al portapapeles
+        navigator.clipboard.writeText(ejecValue).then(() => {
+            // Abre el formulario en una pestaña nueva
+            const baseUrl = 'https://tally.so/r/wAYjbk';
+            window.open(baseUrl + params, '_blank');
+        }).catch(err => {
+            alert('No se pudo copiar automáticamente. Por favor copia tu nombre manualmente.');
+            console.error('Error al copiar: ', err);
+        });
     }
 </script>
 
