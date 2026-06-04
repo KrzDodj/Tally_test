@@ -2,40 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Acceso Rápido - Tally</title>
+    <title>Panel de Operaciones</title>
     <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #f0f2f5; 
-            display: flex; 
-            justify-content: center; 
-            padding: 20px; 
-        }
-        .container { 
-            background: white; 
-            width: 100%; 
-            max-width: 500px; 
-            padding: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-        }
-        h1 { text-align: center; color: #333; font-size: 24px; margin-bottom: 30px; }
-        .group { margin-bottom: 25px; }
-        .group-title { font-size: 14px; color: #888; text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        button { 
-            display: block; 
-            width: 100%; 
-            padding: 15px; 
-            margin: 10px 0; 
-            background-color: #7957ff; 
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 16px; 
-            cursor: pointer; 
-            transition: background 0.3s;
-        }
+        body { font-family: sans-serif; background-color: #f4f4f9; padding: 20px; display: flex; justify-content: center; }
+        .container { max-width: 500px; width: 100%; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .input-group { margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; box-sizing: border-box; border: 2px solid #7957ff; border-radius: 5px; font-size: 16px; margin-top: 5px; }
+        button { display: block; width: 100%; padding: 15px; margin: 10px 0; background-color: #7957ff; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
         button:hover { background-color: #582eff; }
     </style>
 </head>
@@ -43,21 +16,34 @@
 
 <div class="container">
     <h1>Panel de Operaciones</h1>
-
-    <div class="group">
-        <div class="group-title">Activaciones</div>
-        <button onclick="window.open('https://tally.so/r/wAYjbk?3d67f437-d55d-4f8b-8574-22435dde39a6=NO', '_blank')">
-            🚀 Activar Bono (VES)
-        </button>
+    
+    <div class="input-group">
+        <label><strong>Nombre o ID del Ejecutivo:</strong></label>
+        <input type="text" id="ejecutivo" placeholder="Escribe tu usuario aquí...">
     </div>
 
-    <div class="group">
-        <div class="group-title">Soporte</div>
-        <button onclick="window.open('https://tally.so/r/wAYjbk', '_blank')">
-            🔧 Soporte General
-        </button>
-    </div>
+    <button onclick="abrirFormulario('?3d67f437-d55d-4f8b-8574-22435dde39a6=NO&Razon=SOLICITUD&Categoria=BONOS')">
+        🚀 Activar Bono (VES)
+    </button>
+    
+    <button onclick="abrirFormulario('?Razon=SOPORTE')">
+        🔧 Soporte General
+    </button>
 </div>
+
+<script>
+    function abrirFormulario(params) {
+        const ejecValue = document.getElementById('ejecutivo').value;
+        if (!ejecValue) {
+            alert('Por favor, ingresa primero tu nombre o ID de Ejecutivo');
+            return;
+        }
+        // Construye el URL: URL base + parámetros del botón + campo Ejecutivo
+        const baseUrl = 'https://tally.so/r/wAYjbk';
+        const finalUrl = baseUrl + params + '&c74873e1-ef45-4cd4-a0a0-a7c6715967e1=' + encodeURIComponent(ejecValue);
+        window.open(finalUrl, '_blank');
+    }
+</script>
 
 </body>
 </html>
