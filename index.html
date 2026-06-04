@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title>Panel de Operaciones</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f4f9; padding: 20px; display: flex; justify-content: center; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; padding: 20px; display: flex; justify-content: center; }
         .container { max-width: 500px; width: 100%; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         h1 { text-align: center; color: #333; margin-top: 0; }
         .input-group { margin-bottom: 20px; }
         input { width: 100%; padding: 14px; box-sizing: border-box; border: 2px solid #7957ff; border-radius: 6px; font-size: 16px; margin-top: 5px; }
-        .hint { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+        .hint { font-size: 13px; color: #555; margin-top: 8px; background: #eef2ff; padding: 10px; border-radius: 5px; }
         button { display: block; width: 100%; padding: 16px; margin: 12px 0; background-color: #7957ff; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: 0.2s; }
         button:hover { background-color: #582eff; }
         .version { position: fixed; bottom: 10px; right: 10px; font-size: 12px; color: #999; }
@@ -23,7 +23,11 @@
     <div class="input-group">
         <label><strong>Nombre del Ejecutivo:</strong></label>
         <input type="text" id="ejecutivo" placeholder="Tu usuario...">
-        <div class="hint">Al hacer clic en cualquier botón, tu usuario se copiará automáticamente. ¡Solo pega (Ctrl+V) en el formulario!</div>
+        <div class="hint">
+            <b>Instrucciones:</b><br>
+            1. Haz clic en el botón (tu nombre se copiará solo).<br>
+            2. Pega (Ctrl+V) en Tally. El campo "Canal" aparecerá mágicamente.
+        </div>
     </div>
 
     <button onclick="copiarYAbrir('?Razon=SOLICITUD&Categoria=BONOS')">
@@ -35,25 +39,28 @@
     </button>
 </div>
 
-<div class="version">v1.3</div>
+<div class="version">v1.4</div>
 
 <script>
+    // Al cargar la página, recuperamos el usuario guardado
+    const inputEjecutivo = document.getElementById('ejecutivo');
+    inputEjecutivo.value = localStorage.getItem('usuarioEjecutivo') || '';
+
     function copiarYAbrir(params) {
-        const ejecValue = document.getElementById('ejecutivo').value;
+        const ejecValue = inputEjecutivo.value;
         
         if (!ejecValue) {
-            alert('¡Atención! Escribe tu nombre o ID de Ejecutivo primero.');
+            alert('¡Escribe tu nombre de Ejecutivo primero!');
             return;
         }
 
-        // Copia el valor al portapapeles
+        // Guardamos el usuario para la próxima vez
+        localStorage.setItem('usuarioEjecutivo', ejecValue);
+
+        // Copiamos al portapapeles
         navigator.clipboard.writeText(ejecValue).then(() => {
-            // Abre el formulario en una pestaña nueva
             const baseUrl = 'https://tally.so/r/wAYjbk';
             window.open(baseUrl + params, '_blank');
-        }).catch(err => {
-            alert('No se pudo copiar automáticamente. Por favor copia tu nombre manualmente.');
-            console.error('Error al copiar: ', err);
         });
     }
 </script>
